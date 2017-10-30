@@ -1,0 +1,11 @@
+tx_pb_rel_nofollow {
+	
+	enable = 1
+
+	excludeUrls{
+		100 = http://typo3.org/
+		110 = http://forge.typo3.org/
+	}
+
+}
+

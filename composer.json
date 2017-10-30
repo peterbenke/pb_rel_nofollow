@@ -1,0 +1,31 @@
+{
+  "name": "peterbenke/pb-rel-nofollow",
+  "type": "typo3-cms-extension",
+  "description": "Adds a rel-nofollow-attribute to extern links. You can exclude URLs by typoscript.",
+  "keywords": [
+    "TYPO3",
+    "extension",
+    "frontend",
+    "links",
+    "nofollow"
+  ],
+  "homepage": "http://www.typomotor.de",
+  "authors": [
+    {
+      "name": "Peter Benke",
+      "role": "Developer",
+      "homepage": "http://www.typomotor.de"
+    }
+  ],
+  "license": [
+    "GPL-2.0+"
+  ],
+  "require": {
+    "typo3/cms-core": ">=7.6.0 <=8.7.99"
+  },
+  "autoload": {
+    "psr-4": {
+      "PeterBenke\\PbRelNofollow\\": "Classes"
+    }
+  }
+}
