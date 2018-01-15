@@ -87,7 +87,8 @@ class FrontendHook implements \TYPO3\CMS\Core\SingletonInterface{
 	 */
 	private function modifyContent(&$content){
 
-		$regExpression = '#<a(.*)>(.*)</a>#siU';
+		// $regExpression = '#<a(.*)>(.*)</a>#siU';
+		$regExpression = '#<a\s+(.*)>(.*)</a>#siU';
 		$content = preg_replace_callback($regExpression, 'self::setNoFollow', $content);
 
 	}
@@ -101,7 +102,9 @@ class FrontendHook implements \TYPO3\CMS\Core\SingletonInterface{
 	private function setNoFollow($match){
 
 		// Get only the link, because HTML-Entities inside of the a-tag can cause errors
-		$linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
+		// $linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
+		$linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', $match[0]);
+
 		$xml = simplexml_load_string($linkOnly);
 
 		if(!is_object($xml)){
