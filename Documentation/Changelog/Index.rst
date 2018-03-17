@@ -14,6 +14,8 @@ ChangeLog
 ========  ============================
 Version:  Changes:
 ========  ============================
+2.1.2     Update documentation
+--------  ----------------------------
 2.1.1     Small bugifx in regex
 --------  ----------------------------
 2.1.0     Compatibility to Version 8.7

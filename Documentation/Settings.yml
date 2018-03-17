@@ -6,6 +6,6 @@
 conf.py:
   copyright: 2017
   project: Rel nofollow
-  version: 2.1.1
-  release: 2.1
+  version: 2.1
+  release: 2.1.2
 ...
