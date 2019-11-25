@@ -14,6 +14,8 @@ ChangeLog
 ========  ============================
 Version:  Changes:
 ========  ============================
+3.0.0     Compatibility to Version 9.5
+--------  ----------------------------
 2.1.2     Update documentation
 --------  ----------------------------
 2.1.1     Small bugifx in regex

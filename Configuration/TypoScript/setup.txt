@@ -1,4 +1,4 @@
-tx_pb_rel_nofollow {
+config.pb_rel_nofollow {
 	
 	enable = 1
 

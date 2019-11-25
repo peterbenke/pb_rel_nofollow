@@ -4,8 +4,8 @@
 
 ---
 conf.py:
-  copyright: 2017
+  copyright: 2019
   project: Rel nofollow
-  version: 2.1
-  release: 2.1.2
+  version: 3.0.0
+  release: 3.0.0
 ...
