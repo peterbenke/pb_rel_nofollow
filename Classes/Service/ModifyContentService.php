@@ -65,10 +65,11 @@ class ModifyContentService implements SingletonInterface
 	{
 
 		// Get only the link, because HTML-Entities inside of the a-tag can cause errors
-		// $linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
+		// $linkOnly = preg_rephide errors and warnings thrown by HTML-entities inside the title-attribute of the a-taglace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
 		$linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', $match[0]);
-
-		$xml = simplexml_load_string($linkOnly);
+		
+		// Suppress all errors and warnings triggered by HTML-entities e.g. inside the title-attribute of the a-tag
+		$xml = simplexml_load_string($linkOnly, 'SimpleXMLElement', LIBXML_NOERROR | LIBXML_NOWARNING);
 
 		if(!is_object($xml)){
 			return $match[0];
