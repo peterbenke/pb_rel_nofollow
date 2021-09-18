@@ -1,20 +1,29 @@
 <?php
 namespace PeterBenke\PbRelNofollow\Middleware;
 
+/**
+ * PbRelNofollow
+ */
 use PeterBenke\PbRelNofollow\Service\ModifyContentService;
 
+/**
+ * Psr
+ */
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+/**
+ * TYPO3
+ */
 use TYPO3\CMS\Core\Http\Stream;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Http\NullResponse;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
- * Class ModifyContentMiddleware
+ * ModifyContentMiddleware
  * @package PeterBenke\PbRelNofollow\Middleware
  */
 class ModifyContentMiddleware implements MiddlewareInterface
@@ -69,6 +78,5 @@ class ModifyContentMiddleware implements MiddlewareInterface
 		return $response;
 
 	}
-
 
 }

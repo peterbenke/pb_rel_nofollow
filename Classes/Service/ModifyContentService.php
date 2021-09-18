@@ -1,8 +1,14 @@
 <?php
 namespace PeterBenke\PbRelNofollow\Service;
 
+/**
+ * TYPO3
+ */
 use TYPO3\CMS\Core\SingletonInterface;
 
+/**
+ * ModifyContentService
+ */
 class ModifyContentService implements SingletonInterface
 {
 
@@ -20,14 +26,13 @@ class ModifyContentService implements SingletonInterface
 		$this->configuration = $configuration;
 	}
 
-
 	/**
 	 * Clean the HTML with formatter
 	 * @param string $content
-	 * @param array $config Typoscript of this extension
+	 * @param array|null $config Typoscript of this extension
 	 * @return string
 	 */
-	public function clean($content, $config = [])
+	public function clean(string $content, ?array $config = [])
 	{
 
 		if (empty($config) || !isset($config['enable']) || (bool)$config['enable'] === false) {
@@ -35,8 +40,7 @@ class ModifyContentService implements SingletonInterface
 		}
 		$this->setConfiguration($config);
 
-		$content = $this->modifyContent($content);
-		return $content;
+		return $this->modifyContent($content);
 
 	}
 
@@ -48,23 +52,20 @@ class ModifyContentService implements SingletonInterface
 	private function modifyContent($content)
 	{
 
-		// $regExpression = '#<a(.*)>(.*)</a>#siU';
 		$regExpression = '#<a\s+(.*)>(.*)</a>#siU';
-		$content = preg_replace_callback($regExpression, 'self::setNoFollow', $content);
-		return $content;
+		return preg_replace_callback($regExpression, 'self::setNoFollow', $content);
 
 	}
 
-
-	/*
+	/**
 	 * Adds the rel-nofollow-attribute
-	 * @param array $match
-	 * @return string the new link
+	 * @param array|null $match
+	 * @return string
 	 */
-	private function setNoFollow($match)
+	private function setNoFollow(?array $match): string
 	{
 
-		// Get only the link, because HTML-Entities inside of the a-tag can cause errors
+		// Get only the link, because HTML-Entities inside the a-tag can cause errors
 		// $linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
 		$linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', $match[0]);
 
@@ -101,10 +102,11 @@ class ModifyContentService implements SingletonInterface
 	}
 
 	/**
-	 * Checks whether a url is in the exclude-Array
+	 * Checks whether an url is in the exclude-Array
+	 * @param string|null $href
 	 * @return boolean
 	 */
-	private function isInExcludeUrls($href)
+	private function isInExcludeUrls(?string $href): bool
 	{
 
 		$excludeUrls = $this->configuration['excludeUrls.'];
