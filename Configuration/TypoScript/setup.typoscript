@@ -1,11 +1,10 @@
 config.pb_rel_nofollow {
-	
+
 	enable = 1
 
-	excludeUrls{
+	excludeUrls {
 		100 = https://typo3.org/
 		110 = https://forge.typo3.org/
 	}
 
 }
-
