@@ -3,8 +3,6 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. include:: Includes.txt
-
 .. _start:
 
 ============
@@ -29,7 +27,7 @@ Rel nofollow
         Link, rel, nofollow
 
     :Copyright:
-        2021
+        2024
 
     :Author:
         Peter Benke
@@ -47,15 +45,6 @@ Rel nofollow
     The content of this document is related to TYPO3,
     a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
 
+    **Documentation**
 
-    **Table of Contents**
-
-.. toctree::
-    :maxdepth: 3
-    :titlesonly:
-
-    Introduction/Index
-    Administration/Index
-    Configuration/Index
-    KnownProblems/Index
-    Changelog/Index
+	See documentation on `github <https://github.com/peterbenke/pb_rel_nofollow>`__.
