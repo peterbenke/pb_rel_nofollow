@@ -115,7 +115,7 @@ class ModifyContentService implements SingletonInterface
     private function isInExcludeUrls(?string $href): bool
     {
 
-        $excludeUrls = $this->configuration['excludeUrls.'];
+        $excludeUrls = $this->configuration['excludeUrls.'] ?? [];
         $isInExcludeUrls = false;
 
         foreach ($excludeUrls as $excludeUrl) {
