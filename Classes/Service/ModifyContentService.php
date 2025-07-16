@@ -87,7 +87,7 @@ class ModifyContentService implements SingletonInterface
         $attr_array = $attr_array['@attributes'];
 
         // Only links beginning with http(s) and not excluded URLs
-        if (!preg_match('#^https?://#', $attr_array['href']) || $this->isInExcludeUrls($attr_array['href'])) {
+        if (!isset($attr_array['href']) || !preg_match('#^https?://#', $attr_array['href']) || $this->isInExcludeUrls($attr_array['href'])) {
             return $match[0];
         }
 
