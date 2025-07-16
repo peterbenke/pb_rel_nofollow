@@ -56,7 +56,7 @@ class ModifyContentService implements SingletonInterface
     private function modifyContent(?string $content): array|string|null
     {
         $regExpression = '#<a\s+(.*)>(.*)</a>#siU';
-        return preg_replace_callback($regExpression, 'self::setNoFollow', $content);
+        return preg_replace_callback($regExpression, self::setNoFollow(...), $content);
     }
 
     /**
@@ -71,7 +71,11 @@ class ModifyContentService implements SingletonInterface
         // $linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
         $linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', $match[0]);
 
-        $xml = simplexml_load_string($linkOnly);
+        try {
+            $xml = simplexml_load_string($linkOnly);
+        } catch(\Exception) {
+            $xml = null;
+        }
 
         if (!is_object($xml)) {
             return $match[0];

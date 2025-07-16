@@ -68,7 +68,7 @@ class ModifyContentMiddleware implements MiddlewareInterface
 
             $modifiedHtml = $this->modifyContentService->clean(
                 $response->getBody()->__toString(),
-                $GLOBALS['TSFE']->config['config']['pb_rel_nofollow.']
+                $GLOBALS['TSFE']->config['config']['pb_rel_nofollow.'] ?? null
             );
 
             $responseBody = new Stream('php://temp', 'rw');
