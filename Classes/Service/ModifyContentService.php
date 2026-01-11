@@ -19,7 +19,7 @@ class ModifyContentService implements SingletonInterface
     /**
      * @var array|null
      */
-    protected ?array $configuration;
+    protected ?array $configuration = null;
 
     /**
      * Sets the configuration
@@ -40,7 +40,7 @@ class ModifyContentService implements SingletonInterface
     public function clean(?string $content, ?array $config = []): array|string|null
     {
 
-        if (empty($config) || !isset($config['enable']) || (bool)$config['enable'] === false) {
+        if ($config === null || $config === [] || !isset($config['enable']) || (bool)$config['enable'] === false) {
             return $content;
         }
         $this->setConfiguration($config);
@@ -56,7 +56,7 @@ class ModifyContentService implements SingletonInterface
     private function modifyContent(?string $content): array|string|null
     {
         $regExpression = '#<a\s+(.*)>(.*)</a>#siU';
-        return preg_replace_callback($regExpression, 'self::setNoFollow', $content);
+        return preg_replace_callback($regExpression, self::setNoFollow(...), (string) $content);
     }
 
     /**
@@ -69,7 +69,7 @@ class ModifyContentService implements SingletonInterface
 
         // Get only the link, because HTML-Entities inside the a-tag can cause errors
         // $linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
-        $linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', $match[0]);
+        $linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', (string) $match[0]);
 
         $xml = simplexml_load_string($linkOnly);
 
@@ -83,13 +83,13 @@ class ModifyContentService implements SingletonInterface
         $attr_array = $attr_array['@attributes'];
 
         // Only links beginning with http(s) and not excluded URLs
-        if (!preg_match('#^https?://#', $attr_array['href']) || $this->isInExcludeUrls($attr_array['href'])) {
+        if (!preg_match('#^https?://#', (string) $attr_array['href']) || $this->isInExcludeUrls($attr_array['href'])) {
             return $match[0];
         }
 
         if (empty($attr_array['rel'])) {
             $attr_array['rel'] = 'nofollow';
-        } elseif (!preg_match('/nofollow/', $attr_array['rel'])) {
+        } elseif (!preg_match('/nofollow/', (string) $attr_array['rel'])) {
             $attr_array['rel'] .= ' nofollow';
         }
 
@@ -118,7 +118,7 @@ class ModifyContentService implements SingletonInterface
 
             // echo $href . '|' . $excludeUrl . "\n";
 
-            if (preg_match('+^' . $excludeUrl . '+', $href)) {
+            if (preg_match('+^' . $excludeUrl . '+', (string) $href)) {
                 $isInExcludeUrls = true;
                 break;
             }
