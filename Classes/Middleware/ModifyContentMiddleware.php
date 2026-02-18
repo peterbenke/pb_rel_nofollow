@@ -37,7 +37,6 @@ class ModifyContentMiddleware implements MiddlewareInterface
     protected ModifyContentService $modifyContentService;
 
     /**
-     * Did not work?
      * ModifyContentMiddleware constructor
      */
     #public function __construct(protected ModifyContentService $modifyContentService)
@@ -66,9 +65,10 @@ class ModifyContentMiddleware implements MiddlewareInterface
             $GLOBALS['TSFE'] instanceof TypoScriptFrontendController
         ) {
 
+            $config = $GLOBALS['TSFE']->config['config']['pb_rel_nofollow.'] ?? null;
             $modifiedHtml = $this->modifyContentService->clean(
                 $response->getBody()->__toString(),
-                $GLOBALS['TSFE']->config['config']['pb_rel_nofollow.']
+                $config
             );
 
             $responseBody = new Stream('php://temp', 'rw');

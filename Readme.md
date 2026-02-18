@@ -24,14 +24,15 @@ Install this extension via composer
 
 Exclude URLs
 
-You can exclude URLs from this procedure by Typoscript.
+You can exclude URLs from this procedure by Typoscript setup.
 
 Example:
 
-    tx_pb_rel_nofollow {
-        excludeUrls{
-            100 = http://typo3.org/
-            110 = http://forge.typo3.org/
+    config.pb_rel_nofollow {
+        enable = 1
+        excludeUrls {
+            100 = https://typo3.org/
+            110 = https://forge.typo3.org/
         }
     }
 
