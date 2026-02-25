@@ -18,7 +18,7 @@ Install this extension via composer
     
     composer req peterbenke/pb-rel-nofollow
 
-    => Then include the static Typoscript in your template
+    => Then include the static Typoscript in your template or add a dependency in your site config.
 
 ### Configuration
 
