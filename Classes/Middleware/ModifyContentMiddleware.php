@@ -23,8 +23,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 use TYPO3\CMS\Core\Http\Stream;
 use TYPO3\CMS\Core\Http\NullResponse;
+use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * ModifyContentMiddleware
@@ -61,14 +61,12 @@ class ModifyContentMiddleware implements MiddlewareInterface
         $response = $handler->handle($request);
 
         if (
-            !($response instanceof NullResponse)
-            &&
-            $GLOBALS['TSFE'] instanceof TypoScriptFrontendController
+            $request->getAttribute('frontend.typoscript') instanceof FrontendTypoScript
         ) {
 
             $modifiedHtml = $this->modifyContentService->clean(
                 $response->getBody()->__toString(),
-                $GLOBALS['TSFE']->config['config']['pb_rel_nofollow.']
+                $request->getAttribute('frontend.typoscript')->getConfigArray()['pb_rel_nofollow.'] ?? []
             );
 
             $responseBody = new Stream('php://temp', 'rw');
