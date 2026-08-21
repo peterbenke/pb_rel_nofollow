@@ -71,7 +71,8 @@ class ModifyContentService implements SingletonInterface
         // $linkOnly = preg_replace('#<a(.*)>(.*)</a>#siU', '<a$1></a>', $match[0]);
         $linkOnly = preg_replace('#<a\s+(.*)>(.*)</a>#siU', '<a $1></a>', (string) $match[0]);
 
-        $xml = simplexml_load_string($linkOnly);
+        // Try to parse link string to XML but suppress warnings for invalid strings
+        $xml = @simplexml_load_string($linkOnly);
 
         if (!is_object($xml)) {
             return $match[0];
@@ -82,8 +83,8 @@ class ModifyContentService implements SingletonInterface
         $attr_array = (array)$attr_object;
         $attr_array = $attr_array['@attributes'];
 
-        // Only links beginning with http(s) and not excluded URLs
-        if (!preg_match('#^https?://#', (string) $attr_array['href']) || $this->isInExcludeUrls($attr_array['href'])) {
+        // Only links beginning with existing href attribute, http(s) and not excluded URLs
+        if (empty($attr_array['href']) || !preg_match('#^https?://#', (string) $attr_array['href']) || $this->isInExcludeUrls($attr_array['href'])) {
             return $match[0];
         }
 
